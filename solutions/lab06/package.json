@@ -1,0 +1,16 @@
+{
+  "name": "lab06",
+  "version": "1.0.0",
+  "main": "validateUserProfile.js",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "description": "",
+  "devDependencies": {
+    "jest": "^30.0.5"
+  }
+}

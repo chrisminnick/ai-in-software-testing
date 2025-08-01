@@ -1,0 +1,24 @@
+{
+  "name": "lab04-legacy-testing",
+  "version": "1.0.0",
+  "main": "legacy.js",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage"
+  },
+  "keywords": [
+    "testing",
+    "jest",
+    "regression",
+    "es-modules"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "description": "Regression tests for legacy mysteryFunc using ES modules",
+  "devDependencies": {
+    "jest": "^30.0.5"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
