@@ -1,5 +1,4 @@
-import { calculate } from './calculator.js';
-import { jest } from '@jest/globals';
+const { calculate } = require('./calculator.js');
 
 describe('Calculator', () => {
   describe('Basic arithmetic operations', () => {

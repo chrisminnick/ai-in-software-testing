@@ -1,4 +1,4 @@
-import { validateUserProfile } from './validateUserProfile.js';
+const { validateUserProfile } = require('./validateUserProfile.js');
 
 const validUsers = [
   { name: 'Alice Johnson', email: 'alice@example.com', age: 30 },

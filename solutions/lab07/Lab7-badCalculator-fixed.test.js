@@ -1,4 +1,4 @@
-const calc = require('./calculator');
+const { calculate } = require('./calculator');
 
 describe('Calculator', () => {
   test.each([
@@ -6,10 +6,10 @@ describe('Calculator', () => {
     ['subtract', 5, 2, 3],
     ['multiply', 3, 3, 9],
   ])('%s %i and %i equals %i', (op, a, b, expected) => {
-    expect(calc(op, a, b)).toBe(expected);
+    expect(calculate(op, a, b)).toBe(expected);
   });
 
   test('throws error when dividing by zero', () => {
-    expect(() => calc('divide', 4, 0)).toThrow('Cannot divide by zero');
+    expect(() => calculate('divide', 4, 0)).toThrow('Cannot divide by zero');
   });
 });

@@ -1,4 +1,4 @@
-import { calculate } from './calculator';
+const { calculate } = require('./calculator');
 
 // Test successful operations
 test.each([

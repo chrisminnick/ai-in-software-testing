@@ -1,4 +1,4 @@
-import { mysteryFunc } from './legacy.js';
+const { mysteryFunc } = require('./legacy.js');
 
 describe('mysteryFunc', () => {
   describe('basic functionality', () => {

@@ -10,4 +10,4 @@ function mysteryFunc(str) {
   return result;
 }
 
-export { mysteryFunc };
+module.exports = { mysteryFunc };

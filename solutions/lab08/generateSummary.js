@@ -4,4 +4,4 @@ function generateSummary(text) {
   return `Summary: ${text.slice(0, 50)}...`;
 }
 
-export { generateSummary };
+module.exports = { generateSummary };

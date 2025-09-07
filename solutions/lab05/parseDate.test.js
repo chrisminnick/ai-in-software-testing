@@ -1,4 +1,4 @@
-import { parseDate } from './parseDate.js';
+const { parseDate } = require('./parseDate.js');
 
 test.each([
   ['valid ISO date', '2023-01-01', true],

@@ -1,4 +1,4 @@
-import { validateEmail } from './validateEmail';
+const { validateEmail } = require('./validateEmail');
 
 describe('validateEmail', () => {
   test('valid email with standard format', () => {

@@ -13,4 +13,4 @@ function calculate(operation, a, b) {
       throw new Error('Unknown operation');
   }
 }
-export { calculate };
+module.exports = { calculate };

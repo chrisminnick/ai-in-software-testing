@@ -13,4 +13,4 @@ function networkRequest() {
   });
 }
 
-export { networkRequest };
+module.exports = { networkRequest };

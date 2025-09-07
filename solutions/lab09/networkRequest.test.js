@@ -1,5 +1,4 @@
-import { networkRequest } from './networkRequest';
-import { jest } from '@jest/globals';
+const { networkRequest } = require('./networkRequest');
 
 describe('Network Request', () => {
   test('resolves with response', async () => {

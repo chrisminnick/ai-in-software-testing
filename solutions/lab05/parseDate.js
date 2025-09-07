@@ -24,4 +24,4 @@ function parseDate(str) {
   return date;
 }
 
-export { parseDate };
+module.exports = { parseDate };

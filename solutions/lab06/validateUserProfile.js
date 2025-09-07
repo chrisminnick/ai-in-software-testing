@@ -11,4 +11,4 @@ function validateUserProfile(user) {
   return true;
 }
 
-export { validateUserProfile };
+module.exports = { validateUserProfile };

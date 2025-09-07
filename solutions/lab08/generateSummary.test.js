@@ -1,4 +1,4 @@
-import { generateSummary } from './generateSummary.js';
+const { generateSummary } = require('./generateSummary.js');
 
 test('returns message for short input', () => {
   expect(generateSummary('Hi')).toBe('Input too short.');
