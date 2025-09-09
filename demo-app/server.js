@@ -390,10 +390,15 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Demo app running on http://localhost:${PORT}`);
-  console.log(
-    'This app contains intentional vulnerabilities for testing purposes!'
-  );
-});
+// Start server only if this file is run directly (not imported)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Demo app running on http://localhost:${PORT}`);
+    console.log(
+      'This app contains intentional vulnerabilities for testing purposes!'
+    );
+  });
+}
+
+// Export the app for testing
+module.exports = app;

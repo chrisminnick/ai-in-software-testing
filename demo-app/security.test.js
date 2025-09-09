@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../server');
+const app = require('./server');
 
 describe('Demo App Security Tests', () => {
   describe('SQL Injection Tests', () => {
@@ -8,11 +8,33 @@ describe('Demo App Security Tests', () => {
 
       const response = await request(app).post('/login').send({
         username: maliciousInput,
+        password: 'admin123', // Use the actual admin password
+      });
+
+      // This test demonstrates the vulnerability - should succeed because SQL injection 
+      // finds the admin user and password is correct
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('Login successful');
+    });
+
+    test('SQL injection reveals different error messages', async () => {
+      // Test with non-existent user
+      const nonExistentUser = await request(app).post('/login').send({
+        username: 'nonexistent_user_12345',
         password: 'anypassword',
       });
 
-      // This test demonstrates the vulnerability
-      expect(response.status).toBe(200); // Should fail in secure app
+      // Test with SQL injection that should find a user
+      const sqlInjectionUser = await request(app).post('/login').send({
+        username: "admin' OR '1'='1' --",
+        password: 'wrongpassword',
+      });
+
+      // The SQL injection should return a different error message
+      // because it finds a user (even though password is wrong)
+      expect(nonExistentUser.body.error).toBe('User not found');
+      expect(sqlInjectionUser.body.error).toBe('Invalid password');
+      expect(nonExistentUser.body.error).not.toBe(sqlInjectionUser.body.error);
     });
 
     test('Search endpoint SQL injection', async () => {
