@@ -305,6 +305,75 @@ app.get('/api/search', (req, res) => {
   });
 });
 
+// Admin SQL query page
+app.get('/admin/sql', (req, res) => {
+  if (!req.session.userId || req.session.role !== 'admin') {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+  res.sendFile(path.join(__dirname, 'public', 'admin-sql.html'));
+});
+
+// Admin SQL query execution endpoint - EXTREMELY DANGEROUS!
+app.post('/admin/sql/execute', (req, res) => {
+  // Vulnerability: Weak admin check
+  if (req.session.role !== 'admin') {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+
+  const { query } = req.body;
+
+  if (!query) {
+    return res.status(400).json({ error: 'SQL query required' });
+  }
+
+  // Vulnerability: Direct SQL execution without any sanitization
+  // This is EXTREMELY dangerous but perfect for educational purposes
+  console.log(`Admin executing SQL: ${query}`);
+
+  // Check if it's a SELECT query for safety display
+  const isSelect = query.trim().toLowerCase().startsWith('select');
+
+  if (isSelect) {
+    db.all(query, [], (err, rows) => {
+      if (err) {
+        console.error('SQL Error:', err);
+        return res.status(500).json({
+          error: 'SQL Error',
+          details: err.message,
+          query: query,
+        });
+      }
+
+      res.json({
+        success: true,
+        data: rows,
+        rowCount: rows.length,
+        query: query,
+      });
+    });
+  } else {
+    // For non-SELECT queries (INSERT, UPDATE, DELETE, etc.)
+    db.run(query, [], function (err) {
+      if (err) {
+        console.error('SQL Error:', err);
+        return res.status(500).json({
+          error: 'SQL Error',
+          details: err.message,
+          query: query,
+        });
+      }
+
+      res.json({
+        success: true,
+        message: 'Query executed successfully',
+        changes: this.changes,
+        lastID: this.lastID,
+        query: query,
+      });
+    });
+  }
+});
+
 // Logout endpoint
 app.post('/logout', (req, res) => {
   req.session.destroy((err) => {

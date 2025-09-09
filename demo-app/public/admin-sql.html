@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin SQL Interface - Demo App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #dc3545;
+      }
+      .warning {
+        background-color: #f8d7da;
+        border: 2px solid #dc3545;
+        color: #721c24;
+        padding: 20px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+      .query-section {
+        margin-bottom: 30px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      textarea {
+        width: 100%;
+        min-height: 120px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+      }
+      button {
+        background-color: #dc3545;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+        font-weight: bold;
+      }
+      button:hover {
+        background-color: #c82333;
+      }
+      button.back {
+        background-color: #6c757d;
+      }
+      button.back:hover {
+        background-color: #5a6268;
+      }
+      button.clear {
+        background-color: #ffc107;
+        color: #212529;
+      }
+      button.clear:hover {
+        background-color: #e0a800;
+      }
+      .results {
+        margin-top: 20px;
+      }
+      .results table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      .results th,
+      .results td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      .results th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+      }
+      .results tr:nth-child(even) {
+        background-color: #f8f9fa;
+      }
+      .error {
+        color: #dc3545;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 15px;
+        border-radius: 4px;
+        margin-top: 10px;
+      }
+      .success {
+        color: #155724;
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        padding: 15px;
+        border-radius: 4px;
+        margin-top: 10px;
+      }
+      .sample-queries {
+        background-color: #e9ecef;
+        padding: 20px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+      .query-button {
+        background-color: #007bff;
+        font-size: 12px;
+        padding: 5px 10px;
+        margin: 2px;
+      }
+      .query-button:hover {
+        background-color: #0056b3;
+      }
+      pre {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🔥 Admin SQL Interface</h1>
+        <button class="back" onclick="window.location.href='/dashboard'">
+          ← Back to Dashboard
+        </button>
+      </div>
+
+      <div class="warning">
+        ⚠️ <strong>DANGER ZONE:</strong> This interface allows direct SQL
+        execution against the database. This is EXTREMELY dangerous and would
+        never exist in a real application! Use for educational purposes only.
+      </div>
+
+      <div class="sample-queries">
+        <h3>📚 Sample Queries (Click to Use)</h3>
+        <p><strong>Safe Queries:</strong></p>
+        <button class="query-button" onclick="setQuery('SELECT * FROM users;')">
+          View All Users
+        </button>
+        <button
+          class="query-button"
+          onclick="setQuery('SELECT username, email, role FROM users WHERE role = &quot;admin&quot;;')"
+        >
+          Find Admins
+        </button>
+        <button
+          class="query-button"
+          onclick="setQuery('SELECT COUNT(*) as user_count FROM users;')"
+        >
+          Count Users
+        </button>
+        <button
+          class="query-button"
+          onclick="setQuery('SELECT username, failed_login_attempts FROM users ORDER BY failed_login_attempts DESC;')"
+        >
+          Failed Logins
+        </button>
+
+        <p><strong>Schema Exploration:</strong></p>
+        <button
+          class="query-button"
+          onclick="setQuery('PRAGMA table_info(users);')"
+        >
+          Users Table Schema
+        </button>
+        <button
+          class="query-button"
+          onclick="setQuery('SELECT name FROM sqlite_master WHERE type=&quot;table&quot;;')"
+        >
+          List All Tables
+        </button>
+
+        <p><strong>Advanced Queries:</strong></p>
+        <button
+          class="query-button"
+          onclick="setQuery('SELECT username, email, profile_data FROM users WHERE profile_data IS NOT NULL;')"
+        >
+          Users with Profile Data
+        </button>
+        <button
+          class="query-button"
+          onclick="setQuery('SELECT username, datetime(last_login) as last_login FROM users WHERE last_login IS NOT NULL ORDER BY last_login DESC;')"
+        >
+          Recent Logins
+        </button>
+
+        <p><strong>⚠️ Dangerous Queries (Educational Only):</strong></p>
+        <button
+          class="query-button"
+          onclick='setQuery(&apos;UPDATE users SET role = "admin" WHERE username = "testuser";&apos;)'
+        >
+          Promote User to Admin
+        </button>
+        <button
+          class="query-button"
+          onclick='setQuery(&apos;INSERT INTO users (username, email, password, role) VALUES ("hacker", "hack@evil.com", "fakehash", "admin");&apos;)'
+        >
+          Create Admin User
+        </button>
+      </div>
+
+      <div class="query-section">
+        <div class="form-group">
+          <label for="sqlQuery">SQL Query:</label>
+          <textarea
+            id="sqlQuery"
+            placeholder="Enter your SQL query here...
+
+Examples:
+SELECT * FROM users;
+SELECT username, email FROM users WHERE role = 'admin';
+UPDATE users SET role = 'admin' WHERE username = 'testuser';
+"
+          ></textarea>
+        </div>
+        <button onclick="executeQuery()">Execute Query</button>
+        <button class="clear" onclick="clearResults()">Clear Results</button>
+        <button class="query-button" onclick="setQuery('')">Clear Query</button>
+      </div>
+
+      <div id="results" class="results"></div>
+
+      <div
+        style="
+          margin-top: 30px;
+          padding: 20px;
+          background-color: #fff3cd;
+          border-radius: 4px;
+        "
+      >
+        <h4>🎓 Educational Notes:</h4>
+        <ul>
+          <li>
+            <strong>Real Applications:</strong> Would never have direct SQL
+            execution interfaces
+          </li>
+          <li>
+            <strong>Parameterized Queries:</strong> Should always use prepared
+            statements
+          </li>
+          <li>
+            <strong>Least Privilege:</strong> Database users should have minimal
+            required permissions
+          </li>
+          <li>
+            <strong>Input Validation:</strong> All user input should be
+            validated and sanitized
+          </li>
+          <li>
+            <strong>SQL Injection:</strong> This interface demonstrates why SQL
+            injection is so dangerous
+          </li>
+          <li>
+            <strong>Audit Logging:</strong> All database operations should be
+            logged
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      function setQuery(query) {
+        document.getElementById('sqlQuery').value = query;
+      }
+
+      function clearResults() {
+        document.getElementById('results').innerHTML = '';
+      }
+
+      async function executeQuery() {
+        const query = document.getElementById('sqlQuery').value.trim();
+        const resultsDiv = document.getElementById('results');
+
+        if (!query) {
+          resultsDiv.innerHTML =
+            '<div class="error">Please enter a SQL query</div>';
+          return;
+        }
+
+        resultsDiv.innerHTML = '<p>Executing query...</p>';
+
+        try {
+          const response = await fetch('/admin/sql/execute', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query: query }),
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            let html = '<div class="success">';
+            html += `<strong>✅ Query executed successfully:</strong><br>`;
+            html += `<pre>${result.query}</pre>`;
+
+            if (result.data) {
+              // SELECT query results
+              html += `<p><strong>Results (${result.rowCount} rows):</strong></p>`;
+
+              if (result.data.length > 0) {
+                html += '<table>';
+
+                // Table headers
+                const headers = Object.keys(result.data[0]);
+                html += '<tr>';
+                headers.forEach((header) => {
+                  html += `<th>${escapeHtml(header)}</th>`;
+                });
+                html += '</tr>';
+
+                // Table rows
+                result.data.forEach((row) => {
+                  html += '<tr>';
+                  headers.forEach((header) => {
+                    let value = row[header];
+                    if (value === null) value = '<em>NULL</em>';
+                    else if (typeof value === 'string' && value.length > 100) {
+                      value = value.substring(0, 100) + '...';
+                    }
+                    html += `<td>${escapeHtml(String(value))}</td>`;
+                  });
+                  html += '</tr>';
+                });
+
+                html += '</table>';
+              } else {
+                html += '<p><em>No rows returned</em></p>';
+              }
+            } else {
+              // Non-SELECT query results
+              if (result.changes !== undefined) {
+                html += `<p><strong>Rows affected:</strong> ${result.changes}</p>`;
+              }
+              if (result.lastID !== undefined) {
+                html += `<p><strong>Last inserted ID:</strong> ${result.lastID}</p>`;
+              }
+              html += `<p>${result.message}</p>`;
+            }
+
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+          } else {
+            // Error occurred
+            let html = '<div class="error">';
+            html += `<strong>❌ SQL Error:</strong><br>`;
+            html += `<pre>${result.query || query}</pre>`;
+            html += `<p><strong>Error:</strong> ${result.error}</p>`;
+            if (result.details) {
+              html += `<p><strong>Details:</strong> ${result.details}</p>`;
+            }
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+          }
+        } catch (error) {
+          resultsDiv.innerHTML = `<div class="error"><strong>Network Error:</strong> ${error.message}</div>`;
+        }
+      }
+
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // Allow Ctrl+Enter to execute query
+      document
+        .getElementById('sqlQuery')
+        .addEventListener('keydown', function (e) {
+          if (e.ctrlKey && e.key === 'Enter') {
+            e.preventDefault();
+            executeQuery();
+          }
+        });
+
+      // Check if user is admin on page load
+      window.addEventListener('load', async () => {
+        try {
+          const response = await fetch('/api/profile');
+          if (response.ok) {
+            const user = await response.json();
+            if (user.role !== 'admin') {
+              document.body.innerHTML = `
+                            <div class="container">
+                                <div class="error">
+                                    <h2>❌ Access Denied</h2>
+                                    <p>Admin access required to use the SQL interface.</p>
+                                    <button onclick="window.location.href='/dashboard'">← Back to Dashboard</button>
+                                </div>
+                            </div>
+                        `;
+            }
+          } else {
+            window.location.href = '/';
+          }
+        } catch (error) {
+          console.error('Error checking user role:', error);
+        }
+      });
+    </script>
+  </body>
+</html>

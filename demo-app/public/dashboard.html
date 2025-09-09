@@ -162,8 +162,14 @@
       <!-- Admin Section (only visible for admin users) -->
       <div id="adminSection" class="section" style="display: none">
         <h2>Admin Panel</h2>
-        <p><strong>⚠️ Admin Only:</strong> View all users in the system</p>
+        <p><strong>⚠️ Admin Only:</strong> Advanced admin functions</p>
         <button onclick="loadAllUsers()">Load All Users</button>
+        <button
+          onclick="window.location.href='/admin/sql'"
+          style="background-color: #dc3545; margin-left: 10px"
+        >
+          🔥 SQL Interface
+        </button>
         <div id="adminResults"></div>
       </div>
 
