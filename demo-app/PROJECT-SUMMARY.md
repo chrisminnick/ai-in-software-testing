@@ -24,18 +24,21 @@ demo-app/
 ## Key Features
 
 ### 🔐 Authentication System
+
 - User registration and login
 - Session management
 - Role-based access (admin/user)
 - Password hashing with bcrypt
 
 ### 🗄️ Database Backend
+
 - SQLite database
 - User profiles with JSON data
 - Session storage
 - Pre-populated test accounts
 
 ### 🌐 Web Interface
+
 - Clean, functional UI
 - Registration and login forms
 - User dashboard
@@ -46,42 +49,49 @@ demo-app/
 ## Intentional Vulnerabilities
 
 ### 1. **SQL Injection**
+
 - **Location**: Login, search, and profile endpoints
 - **Type**: String concatenation instead of parameterized queries
 - **Example**: `admin' OR '1'='1' --` bypasses authentication
 - **Learning**: Understanding query construction vulnerabilities
 
 ### 2. **Input Validation Issues**
+
 - **Location**: Registration form, profile updates
 - **Type**: Weak validation functions
 - **Example**: 3-character minimum password, basic email check
 - **Learning**: Importance of comprehensive input validation
 
 ### 3. **Cross-Site Scripting (XSS)**
+
 - **Location**: Profile data storage and display
 - **Type**: Insufficient sanitization
 - **Example**: `<script>alert('XSS')</script>` in profile data
 - **Learning**: Output encoding and input sanitization
 
 ### 4. **Authentication Bypass**
+
 - **Location**: Login endpoint
 - **Type**: SQL injection leading to authentication bypass
 - **Example**: Special payloads that manipulate login logic
 - **Learning**: Secure authentication implementation
 
 ### 5. **Information Disclosure**
+
 - **Location**: Error messages, API responses
 - **Type**: Revealing system information
 - **Example**: Different errors for "user not found" vs "wrong password"
 - **Learning**: Secure error handling
 
 ### 6. **Authorization Issues**
+
 - **Location**: Admin endpoints, role checking
 - **Type**: Weak access controls
 - **Example**: Predictable admin credentials, improper role validation
 - **Learning**: Proper authorization mechanisms
 
 ### 7. **Session Security**
+
 - **Location**: Session configuration
 - **Type**: Insecure session settings
 - **Example**: Non-HTTP-only cookies, weak session secret
@@ -90,16 +100,19 @@ demo-app/
 ## Test Accounts
 
 - **Admin**: `admin` / `admin123` (admin role)
-- **User 1**: `testuser` / `password` (user role)  
+- **User 1**: `testuser` / `password` (user role)
 - **User 2**: `john_doe` / `user123` (user role)
 
 ## How Students Use This
 
 ### Phase 1: Exploration
+
 Students explore the application manually to understand its functionality and identify potential attack surfaces.
 
 ### Phase 2: AI-Assisted Test Generation
+
 Using AI chatbots (ChatGPT, Claude, etc.), students generate:
+
 - **Input fuzzing datasets** for registration forms
 - **SQL injection payloads** for authentication bypass
 - **XSS vectors** for stored and reflected attacks
@@ -107,14 +120,17 @@ Using AI chatbots (ChatGPT, Claude, etc.), students generate:
 - **API testing scenarios**
 
 ### Phase 3: Systematic Testing
+
 Students execute the AI-generated test cases and discover vulnerabilities systematically rather than randomly.
 
 ### Phase 4: Documentation and Reporting
+
 Students learn to document findings and understand the business impact of discovered vulnerabilities.
 
 ## Educational Value
 
 ### For Students:
+
 - **Practical Experience**: Real application testing
 - **AI Integration**: Learning to use AI tools effectively
 - **Security Awareness**: Understanding common vulnerabilities
@@ -122,6 +138,7 @@ Students learn to document findings and understand the business impact of discov
 - **Tool Usage**: API testing, payload generation, automation
 
 ### For Instructors:
+
 - **Controlled Environment**: Safe, isolated testing platform
 - **Measurable Outcomes**: Clear vulnerabilities to discover
 - **Scalable**: Multiple students can test simultaneously
@@ -139,6 +156,7 @@ Students learn to document findings and understand the business impact of discov
 ## Advanced Usage
 
 ### API Endpoints for Testing
+
 - `POST /register` - User registration
 - `POST /login` - Authentication
 - `GET /api/profile` - User profile retrieval
@@ -147,6 +165,7 @@ Students learn to document findings and understand the business impact of discov
 - `GET /admin/users` - Admin panel (requires admin role)
 
 ### Testing Tools Integration
+
 - **Burp Suite**: Proxy testing and payload injection
 - **Postman**: API endpoint testing
 - **curl**: Command-line testing
@@ -156,6 +175,7 @@ Students learn to document findings and understand the business impact of discov
 ## Safety and Ethics
 
 ⚠️ **Important Reminders**:
+
 - This app is for **educational purposes only**
 - Contains **intentional vulnerabilities** - never use in production
 - Only test applications you own or have permission to test
@@ -174,6 +194,7 @@ Students learn to document findings and understand the business impact of discov
 ## Success Metrics
 
 Students should be able to:
+
 - [ ] Successfully bypass authentication using SQL injection
 - [ ] Discover and exploit XSS vulnerabilities
 - [ ] Access admin functionality through authorization bypass

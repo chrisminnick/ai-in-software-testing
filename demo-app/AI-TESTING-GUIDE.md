@@ -11,6 +11,7 @@ This guide provides practical examples of how to use AI chatbots to generate tes
 ## Phase 1: Understanding the Application
 
 ### Initial AI Prompt:
+
 ```
 I'm testing a web application with the following endpoints:
 - POST /register (username, email, password, confirmPassword, profileData)
@@ -20,13 +21,14 @@ I'm testing a web application with the following endpoints:
 - GET /api/search?q=searchterm
 - GET /admin/users
 
-The app uses SQLite database and has intentional vulnerabilities for educational testing. 
+The app uses SQLite database and has intentional vulnerabilities for educational testing.
 What systematic approach should I take to test these endpoints for security issues?
 ```
 
 ## Phase 2: Input Generation for Registration
 
 ### AI Prompt for Username Testing:
+
 ```
 Generate 15 different test inputs for a username field that might reveal vulnerabilities including:
 - SQL injection attempts
@@ -40,6 +42,7 @@ Format as a JSON array with input and expected_behavior fields.
 ```
 
 ### Expected AI Response Pattern:
+
 ```json
 [
   {"input": "admin' OR '1'='1' --", "expected_behavior": "SQL injection test"},
@@ -54,6 +57,7 @@ Format as a JSON array with input and expected_behavior fields.
 ## Phase 3: Email Field Fuzzing
 
 ### AI Prompt:
+
 ```
 Create 20 test cases for an email field that might bypass validation or cause unexpected behavior:
 - Invalid email formats
@@ -68,6 +72,7 @@ Include both malicious and edge case inputs.
 ## Phase 4: Password Testing
 
 ### AI Prompt:
+
 ```
 Generate test cases for password fields focusing on:
 - Boundary testing (very short/long passwords)
@@ -82,6 +87,7 @@ Also suggest how to test password confirmation logic.
 ## Phase 5: JSON Profile Data Testing
 
 ### AI Prompt:
+
 ```
 The profile data field accepts JSON. Generate test payloads that might:
 - Cause JSON parsing errors
@@ -97,6 +103,7 @@ Provide 10 different malicious JSON payloads and 5 malformed structure tests.
 ## Phase 6: SQL Injection Testing
 
 ### AI Prompt for Login:
+
 ```
 Generate SQL injection payloads specifically for testing login forms where the query might be:
 SELECT * FROM users WHERE username = 'INPUT' AND password = 'INPUT'
@@ -112,6 +119,7 @@ Format as curl commands I can run against http://localhost:3000/login
 ```
 
 ### AI Prompt for Search Function:
+
 ```
 Create SQL injection payloads for a search endpoint that likely uses:
 SELECT username, email FROM users WHERE username LIKE '%INPUT%'
@@ -128,6 +136,7 @@ Format as URLs I can test: http://localhost:3000/api/search?q=PAYLOAD
 ## Phase 7: Authentication Bypass Testing
 
 ### AI Prompt:
+
 ```
 Help me test authentication bypass on these endpoints:
 - /api/profile (should require login)
@@ -146,6 +155,7 @@ Include curl commands and JavaScript fetch examples.
 ## Phase 8: XSS Testing
 
 ### AI Prompt:
+
 ```
 Generate XSS payloads for testing in user profile data that might:
 - Execute in the dashboard when displayed
@@ -160,6 +170,7 @@ Provide 15 different XSS vectors with varying complexity.
 ## Phase 9: API Security Testing
 
 ### AI Prompt:
+
 ```
 Create a comprehensive test plan for the REST API endpoints including:
 - HTTP method tampering (PUT, DELETE on endpoints that expect POST)
@@ -175,6 +186,7 @@ Generate both manual curl commands and suggestions for automated testing.
 ## Phase 10: Automated Test Generation
 
 ### AI Prompt:
+
 ```
 Write a Python script using requests library that:
 - Tests all the vulnerabilities we've identified
@@ -199,16 +211,16 @@ class VulnerabilityTester:
     def __init__(self, base_url="http://localhost:3000"):
         self.base_url = base_url
         self.session = requests.Session()
-        
+
     def test_sql_injection_login(self):
         payloads = [
             # AI generates list here
         ]
         # AI generates test logic
-        
+
     def test_xss_profile(self):
         # AI generates XSS testing logic
-        
+
     def test_authentication_bypass(self):
         # AI generates auth bypass tests
 ```
@@ -216,6 +228,7 @@ class VulnerabilityTester:
 ## Advanced AI Prompting Techniques
 
 ### 1. Chain of Thought Prompting:
+
 ```
 Let's think step by step about testing this login form:
 1. First, what normal inputs should work?
@@ -227,14 +240,16 @@ Walk me through your reasoning for each test case.
 ```
 
 ### 2. Role-Based Prompting:
+
 ```
-Act as a penetration tester with 10 years of experience. 
+Act as a penetration tester with 10 years of experience.
 You're testing a web application for SQL injection vulnerabilities.
 The application uses SQLite and has string concatenation in queries.
 What would be your systematic approach and what payloads would you try first?
 ```
 
 ### 3. Constraint-Based Prompting:
+
 ```
 Generate SQL injection payloads that:
 - Work specifically with SQLite (not MySQL/PostgreSQL)
@@ -249,16 +264,19 @@ Generate SQL injection payloads that:
 Track your AI-assisted testing with:
 
 ### Vulnerability Discovery Rate:
+
 - How many vulnerabilities found per hour?
 - Coverage of different vulnerability types
 - False positive rate
 
 ### AI Prompt Effectiveness:
+
 - Which prompts generated the most useful test cases?
 - Time saved compared to manual test generation
 - Quality of AI-suggested test approaches
 
 ### Learning Outcomes:
+
 - Understanding of vulnerability patterns
 - Improvement in test case quality
 - Better systematic testing approach

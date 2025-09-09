@@ -1,334 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - Demo App</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #eee;
-        }
-        .section {
-            margin-bottom: 30px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"], input[type="email"], textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        button.logout {
-            background-color: #dc3545;
-        }
-        button.logout:hover {
-            background-color: #c82333;
-        }
-        .error {
-            color: #dc3545;
-            margin-top: 10px;
-        }
-        .success {
-            color: #28a745;
-            margin-top: 10px;
-        }
-        .warning {
-            background-color: #fff3cd;
-            border: 1px solid #ffeaa7;
-            color: #856404;
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        .user-info {
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 4px;
-        }
-        .search-section {
-            background-color: #f8f9fa;
-        }
-        .search-results {
-            margin-top: 15px;
-        }
-        .user-card {
-            background: white;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 4px;
-        }
-        #adminSection {
-            border: 2px solid #dc3545;
-            background-color: #f8d7da;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #eee;
+      }
+      .section {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input[type='text'],
+      input[type='email'],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      button.logout {
+        background-color: #dc3545;
+      }
+      button.logout:hover {
+        background-color: #c82333;
+      }
+      .error {
+        color: #dc3545;
+        margin-top: 10px;
+      }
+      .success {
+        color: #28a745;
+        margin-top: 10px;
+      }
+      .warning {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        color: #856404;
+        padding: 15px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+      .user-info {
+        background-color: #e9ecef;
+        padding: 15px;
+        border-radius: 4px;
+      }
+      .search-section {
+        background-color: #f8f9fa;
+      }
+      .search-results {
+        margin-top: 15px;
+      }
+      .user-card {
+        background: white;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+      }
+      #adminSection {
+        border: 2px solid #dc3545;
+        background-color: #f8d7da;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="header">
-            <h1>Dashboard</h1>
-            <button class="logout" onclick="logout()">Logout</button>
+      <div class="header">
+        <h1>Dashboard</h1>
+        <button class="logout" onclick="logout()">Logout</button>
+      </div>
+
+      <div class="warning">
+        <strong>⚠️ Testing Note:</strong> This dashboard has various endpoints
+        and features that may contain vulnerabilities. Try different inputs and
+        explore the API endpoints!
+      </div>
+
+      <!-- User Profile Section -->
+      <div class="section">
+        <h2>User Profile</h2>
+        <div id="userInfo" class="user-info">
+          <p>Loading user information...</p>
         </div>
 
-        <div class="warning">
-            <strong>⚠️ Testing Note:</strong> This dashboard has various endpoints and features that may contain vulnerabilities. Try different inputs and explore the API endpoints!
-        </div>
+        <h3>Update Profile</h3>
+        <form id="profileForm">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" />
+          </div>
+          <div class="form-group">
+            <label for="profileData">Profile Data (JSON):</label>
+            <textarea id="profileData" name="profileData" rows="4"></textarea>
+          </div>
+          <button type="submit">Update Profile</button>
+        </form>
+        <div id="profileMessage"></div>
+      </div>
 
-        <!-- User Profile Section -->
-        <div class="section">
-            <h2>User Profile</h2>
-            <div id="userInfo" class="user-info">
-                <p>Loading user information...</p>
-            </div>
-            
-            <h3>Update Profile</h3>
-            <form id="profileForm">
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email">
-                </div>
-                <div class="form-group">
-                    <label for="profileData">Profile Data (JSON):</label>
-                    <textarea id="profileData" name="profileData" rows="4"></textarea>
-                </div>
-                <button type="submit">Update Profile</button>
-            </form>
-            <div id="profileMessage"></div>
+      <!-- Search Section -->
+      <div class="section search-section">
+        <h2>Search Users</h2>
+        <div class="form-group">
+          <label for="searchQuery"
+            >Search for users by username or email:</label
+          >
+          <input
+            type="text"
+            id="searchQuery"
+            placeholder="Enter search term..."
+          />
+          <button onclick="searchUsers()">Search</button>
         </div>
+        <div id="searchResults" class="search-results"></div>
+      </div>
 
-        <!-- Search Section -->
-        <div class="section search-section">
-            <h2>Search Users</h2>
-            <div class="form-group">
-                <label for="searchQuery">Search for users by username or email:</label>
-                <input type="text" id="searchQuery" placeholder="Enter search term...">
-                <button onclick="searchUsers()">Search</button>
-            </div>
-            <div id="searchResults" class="search-results"></div>
-        </div>
+      <!-- Admin Section (only visible for admin users) -->
+      <div id="adminSection" class="section" style="display: none">
+        <h2>Admin Panel</h2>
+        <p><strong>⚠️ Admin Only:</strong> View all users in the system</p>
+        <button onclick="loadAllUsers()">Load All Users</button>
+        <div id="adminResults"></div>
+      </div>
 
-        <!-- Admin Section (only visible for admin users) -->
-        <div id="adminSection" class="section" style="display: none;">
-            <h2>Admin Panel</h2>
-            <p><strong>⚠️ Admin Only:</strong> View all users in the system</p>
-            <button onclick="loadAllUsers()">Load All Users</button>
-            <div id="adminResults"></div>
-        </div>
-
-        <!-- API Testing Section -->
-        <div class="section">
-            <h2>API Testing Hints</h2>
-            <p>Try testing these endpoints with different inputs:</p>
-            <ul>
-                <li><code>GET /api/profile</code> - Get current user profile</li>
-                <li><code>POST /api/profile</code> - Update profile (try malicious JSON)</li>
-                <li><code>GET /api/search?q=...</code> - Search users (try SQL injection)</li>
-                <li><code>GET /admin/users</code> - Admin endpoint (test authorization)</li>
-            </ul>
-            <p><strong>Testing Ideas:</strong></p>
-            <ul>
-                <li>Try SQL injection in search queries: <code>' OR '1'='1</code></li>
-                <li>Test XSS in profile data: <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></li>
-                <li>Try to access admin endpoints without proper role</li>
-                <li>Test with malformed JSON in profile updates</li>
-                <li>Try very long inputs to test buffer handling</li>
-            </ul>
-        </div>
+      <!-- API Testing Section -->
+      <div class="section">
+        <h2>API Testing Hints</h2>
+        <p>Try testing these endpoints with different inputs:</p>
+        <ul>
+          <li><code>GET /api/profile</code> - Get current user profile</li>
+          <li>
+            <code>POST /api/profile</code> - Update profile (try malicious JSON)
+          </li>
+          <li>
+            <code>GET /api/search?q=...</code> - Search users (try SQL
+            injection)
+          </li>
+          <li>
+            <code>GET /admin/users</code> - Admin endpoint (test authorization)
+          </li>
+        </ul>
+        <p><strong>Testing Ideas:</strong></p>
+        <ul>
+          <li>Try SQL injection in search queries: <code>' OR '1'='1</code></li>
+          <li>
+            Test XSS in profile data:
+            <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code>
+          </li>
+          <li>Try to access admin endpoints without proper role</li>
+          <li>Test with malformed JSON in profile updates</li>
+          <li>Try very long inputs to test buffer handling</li>
+        </ul>
+      </div>
     </div>
 
     <script>
-        let currentUser = null;
+      let currentUser = null;
 
-        // Load user profile on page load
-        window.addEventListener('load', async () => {
-            await loadUserProfile();
-        });
+      // Load user profile on page load
+      window.addEventListener('load', async () => {
+        await loadUserProfile();
+      });
 
-        async function loadUserProfile() {
-            try {
-                const response = await fetch('/api/profile');
-                if (response.ok) {
-                    currentUser = await response.json();
-                    displayUserInfo(currentUser);
-                    
-                    // Show admin section if user is admin
-                    if (currentUser.role === 'admin') {
-                        document.getElementById('adminSection').style.display = 'block';
-                    }
-                    
-                    // Populate form fields
-                    document.getElementById('email').value = currentUser.email;
-                    document.getElementById('profileData').value = currentUser.profile_data || '{}';
-                } else {
-                    window.location.href = '/';
-                }
-            } catch (error) {
-                console.error('Error loading profile:', error);
-                document.getElementById('userInfo').innerHTML = `<div class="error">Error loading profile: ${error.message}</div>`;
+      async function loadUserProfile() {
+        try {
+          const response = await fetch('/api/profile');
+          if (response.ok) {
+            currentUser = await response.json();
+            displayUserInfo(currentUser);
+
+            // Show admin section if user is admin
+            if (currentUser.role === 'admin') {
+              document.getElementById('adminSection').style.display = 'block';
             }
-        }
 
-        function displayUserInfo(user) {
-            document.getElementById('userInfo').innerHTML = `
+            // Populate form fields
+            document.getElementById('email').value = currentUser.email;
+            document.getElementById('profileData').value =
+              currentUser.profile_data || '{}';
+          } else {
+            window.location.href = '/';
+          }
+        } catch (error) {
+          console.error('Error loading profile:', error);
+          document.getElementById(
+            'userInfo'
+          ).innerHTML = `<div class="error">Error loading profile: ${error.message}</div>`;
+        }
+      }
+
+      function displayUserInfo(user) {
+        document.getElementById('userInfo').innerHTML = `
                 <p><strong>ID:</strong> ${user.id}</p>
                 <p><strong>Username:</strong> ${user.username}</p>
                 <p><strong>Email:</strong> ${user.email}</p>
                 <p><strong>Role:</strong> ${user.role}</p>
-                <p><strong>Created:</strong> ${new Date(user.created_at).toLocaleString()}</p>
-                <p><strong>Last Login:</strong> ${user.last_login ? new Date(user.last_login).toLocaleString() : 'Never'}</p>
-                <p><strong>Failed Login Attempts:</strong> ${user.failed_login_attempts}</p>
+                <p><strong>Created:</strong> ${new Date(
+                  user.created_at
+                ).toLocaleString()}</p>
+                <p><strong>Last Login:</strong> ${
+                  user.last_login
+                    ? new Date(user.last_login).toLocaleString()
+                    : 'Never'
+                }</p>
+                <p><strong>Failed Login Attempts:</strong> ${
+                  user.failed_login_attempts
+                }</p>
             `;
-        }
+      }
 
-        // Profile update handler
-        document.getElementById('profileForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-            
-            try {
-                const response = await fetch('/api/profile', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                const result = await response.json();
-                const messageEl = document.getElementById('profileMessage');
-                
-                if (response.ok) {
-                    messageEl.innerHTML = `<div class="success">${result.message}</div>`;
-                    await loadUserProfile(); // Reload profile
-                } else {
-                    messageEl.innerHTML = `<div class="error">${result.error}</div>`;
-                }
-            } catch (error) {
-                document.getElementById('profileMessage').innerHTML = `<div class="error">Network error: ${error.message}</div>`;
+      // Profile update handler
+      document
+        .getElementById('profileForm')
+        .addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          const data = Object.fromEntries(formData);
+
+          try {
+            const response = await fetch('/api/profile', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            const messageEl = document.getElementById('profileMessage');
+
+            if (response.ok) {
+              messageEl.innerHTML = `<div class="success">${result.message}</div>`;
+              await loadUserProfile(); // Reload profile
+            } else {
+              messageEl.innerHTML = `<div class="error">${result.error}</div>`;
             }
+          } catch (error) {
+            document.getElementById(
+              'profileMessage'
+            ).innerHTML = `<div class="error">Network error: ${error.message}</div>`;
+          }
         });
 
-        // Search users function
-        async function searchUsers() {
-            const query = document.getElementById('searchQuery').value;
-            if (!query) {
-                document.getElementById('searchResults').innerHTML = '<div class="error">Please enter a search term</div>';
-                return;
-            }
+      // Search users function
+      async function searchUsers() {
+        const query = document.getElementById('searchQuery').value;
+        if (!query) {
+          document.getElementById('searchResults').innerHTML =
+            '<div class="error">Please enter a search term</div>';
+          return;
+        }
 
-            try {
-                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-                const results = await response.json();
-                
-                if (response.ok) {
-                    if (results.length === 0) {
-                        document.getElementById('searchResults').innerHTML = '<p>No users found</p>';
-                    } else {
-                        const resultsHtml = results.map(user => `
+        try {
+          const response = await fetch(
+            `/api/search?q=${encodeURIComponent(query)}`
+          );
+          const results = await response.json();
+
+          if (response.ok) {
+            if (results.length === 0) {
+              document.getElementById('searchResults').innerHTML =
+                '<p>No users found</p>';
+            } else {
+              const resultsHtml = results
+                .map(
+                  (user) => `
                             <div class="user-card">
                                 <strong>${user.username}</strong> - ${user.email}
                             </div>
-                        `).join('');
-                        document.getElementById('searchResults').innerHTML = resultsHtml;
-                    }
-                } else {
-                    document.getElementById('searchResults').innerHTML = `<div class="error">${results.error}</div>`;
-                }
-            } catch (error) {
-                document.getElementById('searchResults').innerHTML = `<div class="error">Search error: ${error.message}</div>`;
+                        `
+                )
+                .join('');
+              document.getElementById('searchResults').innerHTML = resultsHtml;
             }
+          } else {
+            document.getElementById(
+              'searchResults'
+            ).innerHTML = `<div class="error">${results.error}</div>`;
+          }
+        } catch (error) {
+          document.getElementById(
+            'searchResults'
+          ).innerHTML = `<div class="error">Search error: ${error.message}</div>`;
         }
+      }
 
-        // Admin function to load all users
-        async function loadAllUsers() {
-            try {
-                const response = await fetch('/admin/users');
-                const users = await response.json();
-                
-                if (response.ok) {
-                    const usersHtml = users.map(user => `
+      // Admin function to load all users
+      async function loadAllUsers() {
+        try {
+          const response = await fetch('/admin/users');
+          const users = await response.json();
+
+          if (response.ok) {
+            const usersHtml = users
+              .map(
+                (user) => `
                         <div class="user-card">
                             <strong>ID:</strong> ${user.id} | 
                             <strong>Username:</strong> ${user.username} | 
                             <strong>Email:</strong> ${user.email} | 
                             <strong>Role:</strong> ${user.role} |
-                            <strong>Active:</strong> ${user.is_active ? 'Yes' : 'No'}
-                            <br><small><strong>Password Hash:</strong> ${user.password.substring(0, 20)}...</small>
+                            <strong>Active:</strong> ${
+                              user.is_active ? 'Yes' : 'No'
+                            }
+                            <br><small><strong>Password Hash:</strong> ${user.password.substring(
+                              0,
+                              20
+                            )}...</small>
                         </div>
-                    `).join('');
-                    document.getElementById('adminResults').innerHTML = `<h3>All Users:</h3>${usersHtml}`;
-                } else {
-                    document.getElementById('adminResults').innerHTML = `<div class="error">${users.error}</div>`;
-                }
-            } catch (error) {
-                document.getElementById('adminResults').innerHTML = `<div class="error">Admin error: ${error.message}</div>`;
-            }
+                    `
+              )
+              .join('');
+            document.getElementById(
+              'adminResults'
+            ).innerHTML = `<h3>All Users:</h3>${usersHtml}`;
+          } else {
+            document.getElementById(
+              'adminResults'
+            ).innerHTML = `<div class="error">${users.error}</div>`;
+          }
+        } catch (error) {
+          document.getElementById(
+            'adminResults'
+          ).innerHTML = `<div class="error">Admin error: ${error.message}</div>`;
         }
+      }
 
-        // Logout function
-        async function logout() {
-            try {
-                const response = await fetch('/logout', { method: 'POST' });
-                if (response.ok) {
-                    window.location.href = '/';
-                } else {
-                    alert('Logout failed');
-                }
-            } catch (error) {
-                console.error('Logout error:', error);
-                window.location.href = '/';
-            }
+      // Logout function
+      async function logout() {
+        try {
+          const response = await fetch('/logout', { method: 'POST' });
+          if (response.ok) {
+            window.location.href = '/';
+          } else {
+            alert('Logout failed');
+          }
+        } catch (error) {
+          console.error('Logout error:', error);
+          window.location.href = '/';
         }
+      }
 
-        // Allow Enter key to trigger search
-        document.getElementById('searchQuery').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                searchUsers();
-            }
+      // Allow Enter key to trigger search
+      document
+        .getElementById('searchQuery')
+        .addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            searchUsers();
+          }
         });
     </script>
-</body>
+  </body>
 </html>

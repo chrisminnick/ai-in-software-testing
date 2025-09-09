@@ -9,6 +9,7 @@ This is a **demonstration application** with intentional security vulnerabilitie
 ## Purpose
 
 This demo app is designed for functional testers to practice using AI chatbots to:
+
 - Generate test inputs for fuzz testing
 - Discover security vulnerabilities
 - Practice systematic testing approaches
@@ -28,27 +29,32 @@ This demo app is designed for functional testers to practice using AI chatbots t
 The application includes various types of vulnerabilities that can be discovered through AI-assisted testing:
 
 ### 1. SQL Injection
+
 - Login endpoint: Vulnerable to authentication bypass
 - Search endpoint: Data extraction possible
 - Profile update: Data manipulation possible
 
 ### 2. Input Validation Issues
+
 - Weak password requirements (minimum 3 characters)
 - Insufficient email validation
 - Missing input sanitization
 
 ### 3. Authentication/Authorization Flaws
+
 - Predictable admin credentials (admin/admin123)
 - Information disclosure in error messages
 - Weak session configuration
 - No rate limiting on login attempts
 
 ### 4. Information Disclosure
+
 - Exposes password hashes in admin endpoint
 - Returns sensitive user data in API responses
 - Different error messages reveal user existence
 
 ### 5. Cross-Site Scripting (XSS)
+
 - Profile data not properly sanitized
 - Stored XSS in user profiles
 - Insecure cookie settings
@@ -56,16 +62,19 @@ The application includes various types of vulnerabilities that can be discovered
 ## Setup Instructions
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Set up the database:**
+
    ```bash
    npm run setup-db
    ```
 
 3. **Start the application:**
+
    ```bash
    npm start
    ```
@@ -76,32 +85,38 @@ The application includes various types of vulnerabilities that can be discovered
 ## Test Credentials
 
 - **Admin:** admin / admin123
-- **User 1:** testuser / password  
+- **User 1:** testuser / password
 - **User 2:** john_doe / user123
 
 ## Testing Ideas for AI Assistance
 
 ### 1. Fuzzing Registration Form
+
 Ask AI to generate test cases for:
+
 - Username field (special characters, SQL injection, XSS)
 - Email field (invalid formats, extremely long inputs)
 - Password field (edge cases, boundary testing)
 - Profile data (JSON injection, malformed data)
 
 ### 2. Authentication Testing
+
 - Brute force attack patterns
 - SQL injection in login form
 - Session manipulation attempts
 - Authorization bypass techniques
 
 ### 3. API Endpoint Testing
+
 - `/api/profile` - Parameter manipulation
 - `/api/search` - SQL injection testing
 - `/admin/users` - Authorization testing
 - Profile update attacks
 
 ### 4. Input Validation Testing
+
 Generate inputs that test:
+
 - Maximum length boundaries
 - Special character handling
 - Unicode and encoding issues
@@ -111,12 +126,15 @@ Generate inputs that test:
 ## Example AI Prompts for Testing
 
 ### For Input Generation:
+
 > "Generate 20 test inputs for a username field that might reveal SQL injection vulnerabilities, including edge cases and boundary conditions."
 
 ### For Attack Vectors:
+
 > "Create a list of potential XSS payloads to test in user profile data fields, including both stored and reflected XSS scenarios."
 
 ### For API Testing:
+
 > "Generate curl commands to test a REST API endpoint for common security vulnerabilities including authorization bypass and data injection."
 
 ## Running Tests
@@ -130,6 +148,7 @@ The included test suite demonstrates various vulnerability testing approaches th
 ## Learning Objectives
 
 Students using this app should learn to:
+
 1. Identify common web application vulnerabilities
 2. Use AI to generate comprehensive test inputs
 3. Understand the importance of input validation
@@ -139,6 +158,7 @@ Students using this app should learn to:
 ## Extending the Testing
 
 Consider having AI help generate:
+
 - Automated fuzzing scripts
 - Custom payload lists
 - API testing sequences
