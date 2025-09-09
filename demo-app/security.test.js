@@ -8,33 +8,32 @@ describe('Demo App Security Tests', () => {
 
       const response = await request(app).post('/login').send({
         username: maliciousInput,
-        password: 'admin123', // Use the actual admin password
+        password: 'admin123', // Use correct password to show SQL injection works
       });
 
-      // This test demonstrates the vulnerability - should succeed because SQL injection 
-      // finds the admin user and password is correct
+      // This test demonstrates the vulnerability - SQL injection finds admin user
+      // and with correct password, login succeeds
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Login successful');
     });
 
-    test('SQL injection reveals different error messages', async () => {
-      // Test with non-existent user
-      const nonExistentUser = await request(app).post('/login').send({
-        username: 'nonexistent_user_12345',
+    test('SQL injection reveals different error behavior', async () => {
+      // Test 1: Completely invalid user
+      const invalidUser = await request(app).post('/login').send({
+        username: 'definitely_not_a_real_user_12345',
         password: 'anypassword',
       });
 
-      // Test with SQL injection that should find a user
-      const sqlInjectionUser = await request(app).post('/login').send({
+      // Test 2: SQL injection that should find a user (but with wrong password)
+      const sqlInjection = await request(app).post('/login').send({
         username: "admin' OR '1'='1' --",
         password: 'wrongpassword',
       });
 
-      // The SQL injection should return a different error message
-      // because it finds a user (even though password is wrong)
-      expect(nonExistentUser.body.error).toBe('User not found');
-      expect(sqlInjectionUser.body.error).toBe('Invalid password');
-      expect(nonExistentUser.body.error).not.toBe(sqlInjectionUser.body.error);
+      // SQL injection should show different error message because it finds a user
+      expect(invalidUser.body.error).toBe('User not found');
+      expect(sqlInjection.body.error).toBe('Invalid password');
+      expect(invalidUser.body.error).not.toBe(sqlInjection.body.error);
     });
 
     test('Search endpoint SQL injection', async () => {
