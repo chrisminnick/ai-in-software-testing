@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Registration & Login App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], input[type="password"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .tab-button {
+            background-color: #6c757d;
+            margin-bottom: 20px;
+        }
+        .tab-button.active {
+            background-color: #007bff;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .error {
+            color: #dc3545;
+            margin-top: 10px;
+        }
+        .success {
+            color: #28a745;
+            margin-top: 10px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Demo Registration & Login App</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Warning:</strong> This application contains intentional security vulnerabilities for educational testing purposes. Do not use in production!
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('login')">Login</button>
+            <button class="tab-button" onclick="showTab('register')">Register</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login" class="tab-content active">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">Username or Email:</label>
+                    <input type="text" id="loginUsername" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <div id="loginMessage"></div>
+            
+            <div style="margin-top: 20px; padding: 15px; background-color: #e9ecef; border-radius: 4px;">
+                <h4>Test Credentials:</h4>
+                <p><strong>Admin:</strong> admin / admin123</p>
+                <p><strong>User:</strong> testuser / password</p>
+                <p><strong>User 2:</strong> john_doe / user123</p>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="register" class="tab-content">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername">Username:</label>
+                    <input type="text" id="regUsername" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email:</label>
+                    <input type="email" id="regEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password:</label>
+                    <input type="password" id="regPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="regConfirmPassword">Confirm Password:</label>
+                    <input type="password" id="regConfirmPassword" name="confirmPassword">
+                </div>
+                <div class="form-group">
+                    <label for="regProfileData">Profile Data (JSON):</label>
+                    <textarea id="regProfileData" name="profileData" rows="3" placeholder='{"name": "Your Name", "bio": "About you"}'></textarea>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <div id="registerMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                const messageEl = document.getElementById('loginMessage');
+                
+                if (response.ok) {
+                    messageEl.innerHTML = `<div class="success">${result.message}</div>`;
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1000);
+                } else {
+                    messageEl.innerHTML = `<div class="error">${result.error}</div>`;
+                }
+            } catch (error) {
+                document.getElementById('loginMessage').innerHTML = `<div class="error">Network error: ${error.message}</div>`;
+            }
+        });
+
+        // Registration form handler
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                const messageEl = document.getElementById('registerMessage');
+                
+                if (response.ok) {
+                    messageEl.innerHTML = `<div class="success">${result.message}</div>`;
+                    e.target.reset();
+                } else {
+                    messageEl.innerHTML = `<div class="error">${result.error}</div>`;
+                }
+            } catch (error) {
+                document.getElementById('registerMessage').innerHTML = `<div class="error">Network error: ${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>

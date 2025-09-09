@@ -1,0 +1,28 @@
+{
+  "name": "demo-registration-app",
+  "version": "1.0.0",
+  "description": "Demo registration and login app for AI testing practice",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "test": "jest",
+    "setup-db": "node setup-database.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6",
+    "bcrypt": "^5.1.1",
+    "express-session": "^1.17.3",
+    "body-parser": "^1.20.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
+  },
+  "keywords": ["demo", "testing", "ai", "vulnerabilities"],
+  "author": "Demo App",
+  "license": "MIT"
+}
