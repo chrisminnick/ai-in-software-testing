@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management System - Requirements Specification</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        h4 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .doc-info ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .doc-info li {
+            margin-bottom: 5px;
+        }
+        
+        .requirement {
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-left: 4px solid #3498db;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .req-id {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        
+        .security-req {
+            border-left-color: #e74c3c;
+        }
+        
+        .security-req .req-id {
+            color: #c0392b;
+        }
+        
+        .perf-req {
+            border-left-color: #f39c12;
+        }
+        
+        .perf-req .req-id {
+            color: #d68910;
+        }
+        
+        .data-req {
+            border-left-color: #27ae60;
+        }
+        
+        .data-req .req-id {
+            color: #229954;
+        }
+        
+        .int-req {
+            border-left-color: #9b59b6;
+        }
+        
+        .int-req .req-id {
+            color: #8e44ad;
+        }
+        
+        .comp-req {
+            border-left-color: #34495e;
+        }
+        
+        .comp-req .req-id {
+            color: #2c3e50;
+        }
+        
+        .tech-req {
+            border-left-color: #16a085;
+        }
+        
+        .tech-req .req-id {
+            color: #138d75;
+        }
+        
+        .ux-req {
+            border-left-color: #e67e22;
+        }
+        
+        .ux-req .req-id {
+            color: #d35400;
+        }
+        
+        .test-req {
+            border-left-color: #8b4513;
+        }
+        
+        .test-req .req-id {
+            color: #a0522d;
+        }
+        
+        .deploy-req {
+            border-left-color: #708090;
+        }
+        
+        .deploy-req .req-id {
+            color: #2f4f4f;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .toc > ul > li {
+            margin-bottom: 8px;
+        }
+        
+        .toc ul ul {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+        
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .document-control {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 40px;
+            border: 1px solid #bdc3c7;
+        }
+        
+        .success-criteria {
+            background-color: #d5f4e6;
+            border: 1px solid #27ae60;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .success-criteria h4 {
+            color: #27ae60;
+            margin-top: 0;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            
+            .toc {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Management System - Requirements Specification</h1>
+        
+        <div class="doc-info">
+            <h3>Document Information</h3>
+            <ul>
+                <li><strong>Project:</strong> User Registration and Management System</li>
+                <li><strong>Version:</strong> 1.0</li>
+                <li><strong>Date:</strong> September 22, 2025</li>
+                <li><strong>Classification:</strong> Production System Requirements</li>
+            </ul>
+        </div>
+
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#executive-summary">1. Executive Summary</a></li>
+                <li><a href="#system-overview">2. System Overview</a></li>
+                <li><a href="#functional-requirements">3. Functional Requirements</a>
+                    <ul>
+                        <li><a href="#user-registration">3.1 User Registration</a></li>
+                        <li><a href="#authentication">3.2 Authentication</a></li>
+                        <li><a href="#user-dashboard">3.3 User Dashboard</a></li>
+                        <li><a href="#user-search">3.4 User Search and Directory</a></li>
+                        <li><a href="#admin-functions">3.5 Administrative Functions</a></li>
+                    </ul>
+                </li>
+                <li><a href="#security-requirements">4. Security Requirements</a></li>
+                <li><a href="#performance-requirements">5. Performance Requirements</a></li>
+                <li><a href="#data-requirements">6. Data Requirements</a></li>
+                <li><a href="#integration-requirements">7. Integration Requirements</a></li>
+                <li><a href="#compliance-requirements">8. Compliance and Audit Requirements</a></li>
+                <li><a href="#technical-specifications">9. Technical Specifications</a></li>
+                <li><a href="#ux-requirements">10. User Experience Requirements</a></li>
+                <li><a href="#testing-requirements">11. Testing Requirements</a></li>
+                <li><a href="#deployment-maintenance">12. Deployment and Maintenance</a></li>
+                <li><a href="#success-criteria">13. Success Criteria</a></li>
+            </ul>
+        </div>
+
+        <h2 id="executive-summary">1. Executive Summary</h2>
+        <p>This document outlines the requirements for a secure web-based user management system that provides user registration, authentication, profile management, and administrative capabilities. The system is designed to handle user accounts with role-based access control and comprehensive security measures.</p>
+
+        <h2 id="system-overview">2. System Overview</h2>
+
+        <h3 id="system-purpose">2.1 Purpose</h3>
+        <p>The User Management System provides a secure platform for:</p>
+        <ul>
+            <li>User account registration and management</li>
+            <li>Authentication and authorization services</li>
+            <li>User profile management</li>
+            <li>Administrative oversight and reporting</li>
+            <li>User search and directory services</li>
+        </ul>
+
+        <h3 id="target-users">2.2 Target Users</h3>
+        <ul>
+            <li><strong>End Users:</strong> Individuals registering and managing their accounts</li>
+            <li><strong>System Administrators:</strong> Personnel managing user accounts and system operations</li>
+            <li><strong>API Consumers:</strong> External systems integrating with user services</li>
+        </ul>
+
+        <h2 id="functional-requirements">3. Functional Requirements</h2>
+
+        <h3 id="user-registration">3.1 User Registration</h3>
+
+        <h4>3.1.1 Account Creation</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-001:</span> The system SHALL allow new users to create accounts by providing username, email, and password
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-002:</span> The system SHALL enforce unique usernames and email addresses across all accounts
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-003:</span> The system SHALL validate email addresses using RFC 5322 compliant validation
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-004:</span> The system SHALL require password confirmation during registration
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-005:</span> The system SHALL support optional profile data during registration
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-006:</span> The system SHALL automatically assign "user" role to new registrations
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-007:</span> The system SHALL send email verification for new registrations
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-008:</span> The system SHALL not activate accounts until email verification is completed
+        </div>
+
+        <h4>3.1.2 Input Validation</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-009:</span> Username SHALL be 3-50 characters, alphanumeric and underscore only
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-010:</span> Email address SHALL be validated against RFC 5322 standard
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-011:</span> Password SHALL meet complexity requirements (see Security Requirements)
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-012:</span> All user inputs SHALL be sanitized to prevent injection attacks
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-013:</span> Profile data SHALL be validated and size-limited (max 5KB)
+        </div>
+
+        <h3 id="authentication">3.2 Authentication</h3>
+
+        <h4>3.2.1 Login Process</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-014:</span> The system SHALL authenticate users using username/email and password
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-015:</span> The system SHALL support login using either username or email address
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-016:</span> The system SHALL maintain secure session management
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-017:</span> The system SHALL redirect authenticated users to their dashboard
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-018:</span> The system SHALL track last login timestamp for each user
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-019:</span> The system SHALL provide secure logout functionality
+        </div>
+
+        <h4>3.2.2 Account Security</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-020:</span> The system SHALL implement account lockout after 5 failed login attempts
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-021:</span> The system SHALL implement progressive delays for failed login attempts
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-022:</span> The system SHALL log all authentication events for audit purposes
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-023:</span> The system SHALL support account deactivation by administrators
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-024:</span> The system SHALL provide password reset functionality via email
+        </div>
+
+        <h3 id="user-dashboard">3.3 User Dashboard</h3>
+
+        <h4>3.3.1 Profile Management</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-025:</span> The system SHALL provide a user dashboard for account management
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-026:</span> Users SHALL be able to view their profile information
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-027:</span> Users SHALL be able to update their email address
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-028:</span> Users SHALL be able to modify their profile data
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-029:</span> Users SHALL be able to change their password
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-030:</span> The system SHALL require current password verification for sensitive changes
+        </div>
+
+        <h4>3.3.2 Account Information Display</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-031:</span> The dashboard SHALL display user's username, email, and role
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-032:</span> The dashboard SHALL show account creation date
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-033:</span> The dashboard SHALL show last login timestamp
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-034:</span> The dashboard SHALL display current profile data in editable format
+        </div>
+
+        <h3 id="user-search">3.4 User Search and Directory</h3>
+
+        <h4>3.4.1 Search Functionality</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-035:</span> The system SHALL provide user search functionality
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-036:</span> Search SHALL support partial matching on usernames and email addresses
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-037:</span> Search results SHALL only display public profile information
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-038:</span> Search SHALL be available to authenticated users only
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-039:</span> Search queries SHALL be logged for audit purposes
+        </div>
+
+        <h4>3.4.2 Privacy Controls</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-040:</span> Users SHALL be able to control visibility of their profile in search results
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-041:</span> Sensitive information SHALL never be included in search results
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-042:</span> Search results SHALL be paginated for performance
+        </div>
+
+        <h3 id="admin-functions">3.5 Administrative Functions</h3>
+
+        <h4>3.5.1 User Management</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-043:</span> Administrators SHALL be able to view all user accounts
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-044:</span> Administrators SHALL be able to deactivate user accounts
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-045:</span> Administrators SHALL be able to reset user passwords
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-046:</span> Administrators SHALL be able to modify user roles
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-047:</span> Administrators SHALL be able to view user login history
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-048:</span> Administrative actions SHALL be logged with admin identity and timestamp
+        </div>
+
+        <h4>3.5.2 System Monitoring</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-049:</span> Administrators SHALL have access to system health dashboards
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-050:</span> The system SHALL provide user activity reports
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-051:</span> The system SHALL provide security incident reports
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-052:</span> Administrators SHALL be able to export user data for compliance purposes
+        </div>
+
+        <h4>3.5.3 Database Administration</h4>
+        <div class="requirement">
+            <span class="req-id">REQ-053:</span> Administrators SHALL have controlled access to database reporting functions
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-054:</span> Database queries SHALL be limited to read-only operations for reporting
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-055:</span> All database access SHALL be logged and monitored
+        </div>
+        <div class="requirement">
+            <span class="req-id">REQ-056:</span> Administrative database access SHALL require additional authentication
+        </div>
+
+        <h2 id="security-requirements">4. Security Requirements</h2>
+
+        <h3>4.1 Password Security</h3>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-001:</span> Passwords SHALL be a minimum of 12 characters
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-002:</span> Passwords SHALL require at least one uppercase letter, lowercase letter, number, and special character
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-003:</span> Passwords SHALL be hashed using bcrypt with minimum cost factor of 12
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-004:</span> The system SHALL prevent use of common/breached passwords
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-005:</span> Password history SHALL prevent reuse of last 12 passwords
+        </div>
+
+        <h3>4.2 Session Management</h3>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-006:</span> Sessions SHALL use cryptographically secure random session IDs
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-007:</span> Session cookies SHALL be httpOnly and secure
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-008:</span> Sessions SHALL expire after 8 hours of inactivity
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-009:</span> Sessions SHALL expire after 24 hours regardless of activity
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-010:</span> The system SHALL invalidate all sessions on password change
+        </div>
+
+        <h3>4.3 Input Security</h3>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-011:</span> All database interactions SHALL use parameterized queries
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-012:</span> All user inputs SHALL be validated and sanitized
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-013:</span> The system SHALL implement CSRF protection
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-014:</span> The system SHALL implement XSS protection headers
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-015:</span> File uploads SHALL be restricted and scanned
+        </div>
+
+        <h3>4.4 Access Control</h3>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-016:</span> The system SHALL implement role-based access control
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-017:</span> Administrative functions SHALL require "admin" role
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-018:</span> API endpoints SHALL validate user permissions
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-019:</span> The system SHALL implement principle of least privilege
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-020:</span> Administrative role assignment SHALL require dual approval
+        </div>
+
+        <h3>4.5 Data Protection</h3>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-021:</span> Personal data SHALL be encrypted at rest
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-022:</span> All communications SHALL use TLS 1.3 or higher
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-023:</span> The system SHALL implement data retention policies
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-024:</span> The system SHALL support GDPR data deletion requests
+        </div>
+        <div class="requirement security-req">
+            <span class="req-id">SEC-025:</span> Audit logs SHALL be immutable and encrypted
+        </div>
+
+        <h2 id="performance-requirements">5. Performance Requirements</h2>
+
+        <h3>5.1 Response Times</h3>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-001:</span> Login operations SHALL complete within 2 seconds
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-002:</span> Registration operations SHALL complete within 3 seconds
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-003:</span> Profile updates SHALL complete within 2 seconds
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-004:</span> Search operations SHALL return results within 1 second
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-005:</span> Administrative reports SHALL generate within 10 seconds
+        </div>
+
+        <h3>5.2 Scalability</h3>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-006:</span> The system SHALL support 10,000 concurrent users
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-007:</span> The system SHALL support 1 million registered users
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-008:</span> Database operations SHALL be optimized for high concurrency
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-009:</span> The system SHALL implement connection pooling
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-010:</span> Static resources SHALL be served via CDN
+        </div>
+
+        <h3>5.3 Availability</h3>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-011:</span> The system SHALL maintain 99.9% uptime
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-012:</span> The system SHALL implement graceful degradation
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-013:</span> Maintenance windows SHALL not exceed 4 hours
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-014:</span> The system SHALL implement health checks
+        </div>
+        <div class="requirement perf-req">
+            <span class="req-id">PERF-015:</span> Critical failures SHALL trigger automated alerts
+        </div>
+
+        <h2 id="data-requirements">6. Data Requirements</h2>
+
+        <h3>6.1 User Data Model</h3>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-001:</span> User records SHALL include: id, username, email, password_hash, role, created_at, is_active, last_login
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-002:</span> Profile data SHALL be stored as structured JSON with size limits
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-003:</span> Authentication events SHALL be logged with timestamp, user_id, ip_address, success/failure
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-004:</span> Session data SHALL include: session_id, user_id, expires_at, created_at
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-005:</span> All timestamps SHALL use UTC timezone
+        </div>
+
+        <h3>6.2 Data Integrity</h3>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-006:</span> The system SHALL enforce referential integrity constraints
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-007:</span> User emails and usernames SHALL have unique constraints
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-008:</span> Database transactions SHALL be ACID compliant
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-009:</span> Data validation SHALL occur at both application and database levels
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-010:</span> The system SHALL implement data backup and recovery procedures
+        </div>
+
+        <h3>6.3 Data Privacy</h3>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-011:</span> Personal data SHALL be classified and handled per privacy policies
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-012:</span> User consent SHALL be tracked for data processing activities
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-013:</span> Data retention periods SHALL be enforced automatically
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-014:</span> Data anonymization SHALL be implemented for analytics
+        </div>
+        <div class="requirement data-req">
+            <span class="req-id">DATA-015:</span> Cross-border data transfers SHALL comply with applicable laws
+        </div>
+
+        <h2 id="integration-requirements">7. Integration Requirements</h2>
+
+        <h3>7.1 API Specifications</h3>
+        <div class="requirement int-req">
+            <span class="req-id">INT-001:</span> The system SHALL provide RESTful API endpoints
+        </div>
+        <div class="requirement int-req">
+            <span class="req-id">INT-002:</span> API responses SHALL use JSON format
+        </div>
+        <div class="requirement int-req">
+            <span class="req-id">INT-003:</span> API authentication SHALL use JWT tokens
+        </div>
+        <div class="requirement int-req">
+            <span class="req-id">INT-004:</span> API versioning SHALL be implemented in URLs
+        </div>
+        <div class="requirement int-req">
+            <span class="req-id">INT-005:</span> Rate limiting SHALL be implemented for all API endpoints
+        </div>
+
+        <h3>7.2 External Services</h3>
+        <div class="requirement int-req">
+            <span class="req-id">INT-006:</span> Email services SHALL be integrated for notifications
+        </div>
+        <div class="requirement int-req">
+            <span class="req-id">INT-007:</span> The system SHALL integrate with CAPTCHA services
+        </div>
+        <div class="requirement int-req">
+            <span class="req-id">INT-008:</span> LDAP/Active Directory integration SHALL be supported
+        </div>
+        <div class="requirement int-req">
+            <span class="req-id">INT-009:</span> Single Sign-On (SSO) SHALL be supported via SAML/OAuth
+        </div>
+        <div class="requirement int-req">
+            <span class="req-id">INT-010:</span> Audit logging SHALL integrate with SIEM systems
+        </div>
+
+        <h2 id="compliance-requirements">8. Compliance and Audit Requirements</h2>
+
+        <h3>8.1 Regulatory Compliance</h3>
+        <div class="requirement comp-req">
+            <span class="req-id">COMP-001:</span> The system SHALL comply with GDPR requirements
+        </div>
+        <div class="requirement comp-req">
+            <span class="req-id">COMP-002:</span> The system SHALL comply with CCPA requirements
+        </div>
+        <div class="requirement comp-req">
+            <span class="req-id">COMP-003:</span> SOC 2 compliance SHALL be maintained
+        </div>
+        <div class="requirement comp-req">
+            <span class="req-id">COMP-004:</span> Regular security assessments SHALL be conducted
+        </div>
+        <div class="requirement comp-req">
+            <span class="req-id">COMP-005:</span> Vulnerability scanning SHALL be performed monthly
+        </div>
+
+        <h3>8.2 Audit and Logging</h3>
+        <div class="requirement comp-req">
+            <span class="req-id">COMP-006:</span> All user actions SHALL be logged with sufficient detail
+        </div>
+        <div class="requirement comp-req">
+            <span class="req-id">COMP-007:</span> Security events SHALL be logged to immutable storage
+        </div>
+        <div class="requirement comp-req">
+            <span class="req-id">COMP-008:</span> Audit logs SHALL be retained for minimum 7 years
+        </div>
+        <div class="requirement comp-req">
+            <span class="req-id">COMP-009:</span> Log integrity SHALL be cryptographically verified
+        </div>
+        <div class="requirement comp-req">
+            <span class="req-id">COMP-010:</span> Audit reports SHALL be generated quarterly
+        </div>
+
+        <h2 id="technical-specifications">9. Technical Specifications</h2>
+
+        <h3>9.1 Technology Stack</h3>
+        <div class="requirement tech-req">
+            <span class="req-id">TECH-001:</span> Backend SHALL use Node.js with Express framework
+        </div>
+        <div class="requirement tech-req">
+            <span class="req-id">TECH-002:</span> Database SHALL use PostgreSQL for production deployment
+        </div>
+        <div class="requirement tech-req">
+            <span class="req-id">TECH-003:</span> Session storage SHALL use Redis for scalability
+        </div>
+        <div class="requirement tech-req">
+            <span class="req-id">TECH-004:</span> Frontend SHALL use modern web standards (HTML5, CSS3, ES6+)
+        </div>
+        <div class="requirement tech-req">
+            <span class="req-id">TECH-005:</span> SSL/TLS certificates SHALL be managed automatically
+        </div>
+
+        <h3>9.2 Infrastructure Requirements</h3>
+        <div class="requirement tech-req">
+            <span class="req-id">TECH-006:</span> The system SHALL be deployable in container environments
+        </div>
+        <div class="requirement tech-req">
+            <span class="req-id">TECH-007:</span> Infrastructure SHALL support horizontal scaling
+        </div>
+        <div class="requirement tech-req">
+            <span class="req-id">TECH-008:</span> Load balancing SHALL distribute traffic across instances
+        </div>
+        <div class="requirement tech-req">
+            <span class="req-id">TECH-009:</span> Database replication SHALL be implemented for high availability
+        </div>
+        <div class="requirement tech-req">
+            <span class="req-id">TECH-010:</span> Monitoring and alerting SHALL cover all system components
+        </div>
+
+        <h2 id="ux-requirements">10. User Experience Requirements</h2>
+
+        <h3>10.1 Interface Design</h3>
+        <div class="requirement ux-req">
+            <span class="req-id">UX-001:</span> The interface SHALL be responsive and mobile-friendly
+        </div>
+        <div class="requirement ux-req">
+            <span class="req-id">UX-002:</span> The system SHALL comply with WCAG 2.1 AA accessibility standards
+        </div>
+        <div class="requirement ux-req">
+            <span class="req-id">UX-003:</span> Form validation SHALL provide real-time feedback
+        </div>
+        <div class="requirement ux-req">
+            <span class="req-id">UX-004:</span> Error messages SHALL be user-friendly and actionable
+        </div>
+        <div class="requirement ux-req">
+            <span class="req-id">UX-005:</span> The interface SHALL support internationalization
+        </div>
+
+        <h3>10.2 Usability</h3>
+        <div class="requirement ux-req">
+            <span class="req-id">UX-006:</span> New user onboarding SHALL be intuitive and guided
+        </div>
+        <div class="requirement ux-req">
+            <span class="req-id">UX-007:</span> Password strength indicators SHALL be provided
+        </div>
+        <div class="requirement ux-req">
+            <span class="req-id">UX-008:</span> The system SHALL remember user preferences
+        </div>
+        <div class="requirement ux-req">
+            <span class="req-id">UX-009:</span> Help documentation SHALL be context-sensitive
+        </div>
+        <div class="requirement ux-req">
+            <span class="req-id">UX-010:</span> User feedback mechanisms SHALL be integrated
+        </div>
+
+        <h2 id="testing-requirements">11. Testing Requirements</h2>
+
+        <h3>11.1 Security Testing</h3>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-001:</span> Penetration testing SHALL be conducted quarterly
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-002:</span> Automated security scanning SHALL run with each deployment
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-003:</span> SQL injection testing SHALL cover all database interactions
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-004:</span> XSS testing SHALL cover all user input fields
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-005:</span> Authentication bypass testing SHALL be performed
+        </div>
+
+        <h3>11.2 Performance Testing</h3>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-006:</span> Load testing SHALL simulate expected user volumes
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-007:</span> Stress testing SHALL identify system breaking points
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-008:</span> Endurance testing SHALL verify long-term stability
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-009:</span> Database performance SHALL be tested under load
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-010:</span> API response times SHALL be continuously monitored
+        </div>
+
+        <h3>11.3 Functional Testing</h3>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-011:</span> Unit tests SHALL achieve minimum 90% code coverage
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-012:</span> Integration tests SHALL cover all API endpoints
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-013:</span> End-to-end tests SHALL cover critical user workflows
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-014:</span> Regression testing SHALL be automated
+        </div>
+        <div class="requirement test-req">
+            <span class="req-id">TEST-015:</span> User acceptance testing SHALL validate requirements
+        </div>
+
+        <h2 id="deployment-maintenance">12. Deployment and Maintenance</h2>
+
+        <h3>12.1 Deployment Requirements</h3>
+        <div class="requirement deploy-req">
+            <span class="req-id">DEPLOY-001:</span> Blue-green deployment strategy SHALL minimize downtime
+        </div>
+        <div class="requirement deploy-req">
+            <span class="req-id">DEPLOY-002:</span> Database migrations SHALL be reversible
+        </div>
+        <div class="requirement deploy-req">
+            <span class="req-id">DEPLOY-003:</span> Configuration management SHALL support multiple environments
+        </div>
+        <div class="requirement deploy-req">
+            <span class="req-id">DEPLOY-004:</span> Automated deployment pipelines SHALL include all testing phases
+        </div>
+        <div class="requirement deploy-req">
+            <span class="req-id">DEPLOY-005:</span> Rollback procedures SHALL be tested and documented
+        </div>
+
+        <h3>12.2 Maintenance and Support</h3>
+        <div class="requirement deploy-req">
+            <span class="req-id">DEPLOY-006:</span> 24/7 system monitoring SHALL be implemented
+        </div>
+        <div class="requirement deploy-req">
+            <span class="req-id">DEPLOY-007:</span> Incident response procedures SHALL be documented
+        </div>
+        <div class="requirement deploy-req">
+            <span class="req-id">DEPLOY-008:</span> Regular security updates SHALL be applied
+        </div>
+        <div class="requirement deploy-req">
+            <span class="req-id">DEPLOY-009:</span> Performance optimization SHALL be ongoing
+        </div>
+        <div class="requirement deploy-req">
+            <span class="req-id">DEPLOY-010:</span> Documentation SHALL be maintained current with system changes
+        </div>
+
+        <h2 id="success-criteria">13. Success Criteria</h2>
+
+        <div class="success-criteria">
+            <h4>13.1 Acceptance Criteria</h4>
+            <ul>
+                <li>All functional requirements SHALL be implemented and tested</li>
+                <li>Security requirements SHALL pass independent security audit</li>
+                <li>Performance requirements SHALL be verified under simulated load</li>
+                <li>Compliance requirements SHALL be certified by qualified assessors</li>
+                <li>User acceptance testing SHALL achieve 95% satisfaction rating</li>
+            </ul>
+        </div>
+
+        <div class="success-criteria">
+            <h4>13.2 Go-Live Criteria</h4>
+            <ul>
+                <li>Production infrastructure SHALL be fully operational</li>
+                <li>All integration points SHALL be tested and functional</li>
+                <li>Staff training SHALL be completed for all user roles</li>
+                <li>Incident response procedures SHALL be activated</li>
+                <li>Backup and recovery procedures SHALL be verified</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="document-control">
+            <h3>Document Control</h3>
+            <ul>
+                <li><strong>Author:</strong> System Analyst</li>
+                <li><strong>Reviewed By:</strong> Security Team, Architecture Team</li>
+                <li><strong>Approved By:</strong> Project Sponsor</li>
+                <li><strong>Next Review Date:</strong> Annual or upon significant system changes</li>
+            </ul>
+
+            <h4>Change History</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Version</th>
+                        <th>Date</th>
+                        <th>Author</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1.0</td>
+                        <td>2025-09-22</td>
+                        <td>System Analyst</td>
+                        <td>Initial requirements specification</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
